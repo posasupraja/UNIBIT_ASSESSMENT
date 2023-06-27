@@ -1,0 +1,28 @@
+import itertools
+
+def find_combinations(arr, target):
+    result = []
+    combinations = []
+    for i in range(len(arr)):
+        for j in range(i + 1, len(arr)):
+            if arr[i] + arr[j] == target:
+                result.append([arr[i], arr[j]])
+
+    merged_array = sorted(arr)
+    double_target = target * 2
+
+    for combination in itertools.combinations(merged_array, 4):
+        if sum(combination) == double_target:
+            combinations.append(list(combination))
+
+    return result, merged_array, combinations
+
+arr = [1, 3, 2, 2, -4, -6, -2, 8]
+target = 4
+
+first_combinations, merged_array, second_combinations = find_combinations(arr, target)
+second_combinations = sorted(second_combinations, key=lambda x: (x[3], x[2], x[1], x[0]))
+
+print("First Combination For", target, ":", first_combinations)
+print("Merge Into a Single Array:", merged_array)
+print("Second Combination For", target * 2, ":", second_combinations)
